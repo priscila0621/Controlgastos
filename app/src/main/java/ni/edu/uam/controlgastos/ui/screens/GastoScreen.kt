@@ -59,13 +59,16 @@ fun GastoScreen() {
             // Botón guardar
             Button(
                 onClick = {
-                    if (nombre.isNotEmpty() && monto.isNotEmpty()) {
+                    if (nombre.isBlank() || monto.isBlank()) {
+                        mensaje = "Por favor completa todos los campos"
+                    } else if (monto.toDoubleOrNull() == null) {
+                        mensaje = "El monto debe ser un número válido"
+                    } else {
                         ultimoGasto = Gasto(nombre, monto, categoria)
                         mensaje = "Gasto registrado correctamente"
+
                         nombre = ""
                         monto = ""
-                    } else {
-                        mensaje = "Completa todos los campos"
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
